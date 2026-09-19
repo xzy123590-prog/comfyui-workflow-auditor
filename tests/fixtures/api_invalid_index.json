@@ -1,0 +1,26 @@
+{
+  "1": {
+    "class_type": "SyntheticSource",
+    "inputs": {
+      "bool": [
+        "1",
+        true
+      ],
+      "negative": [
+        "1",
+        -1
+      ],
+      "float": [
+        "1",
+        0.0
+      ],
+      "string": [
+        "1",
+        "0"
+      ],
+      "missing": [
+        "1"
+      ]
+    }
+  }
+}

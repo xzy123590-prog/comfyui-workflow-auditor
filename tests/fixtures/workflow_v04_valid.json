@@ -1,0 +1,61 @@
+{
+  "version": 0.4,
+  "last_node_id": 20,
+  "last_link_id": 7,
+  "nodes": [
+    {
+      "id": 10,
+      "type": "SyntheticSource",
+      "pos": [
+        0,
+        0
+      ],
+      "size": {
+        "0": 1,
+        "1": 1
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "outputs": [
+        {
+          "links": [
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "type": "SyntheticSink",
+      "pos": [
+        0,
+        0
+      ],
+      "size": {
+        "0": 1,
+        "1": 1
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "properties": {},
+      "inputs": [
+        {
+          "link": 7
+        }
+      ]
+    }
+  ],
+  "links": [
+    [
+      7,
+      10,
+      0,
+      20,
+      0,
+      "SyntheticTransform"
+    ]
+  ]
+}

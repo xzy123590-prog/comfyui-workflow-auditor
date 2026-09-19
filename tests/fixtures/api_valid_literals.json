@@ -1,0 +1,40 @@
+{
+  "1": {
+    "class_type": "SyntheticSource",
+    "inputs": {
+      "words": [
+        "alpha",
+        "beta"
+      ],
+      "numbers": [
+        1,
+        2
+      ],
+      "numeric_first": [
+        1,
+        0
+      ],
+      "nested": [
+        [
+          "1",
+          0
+        ],
+        [
+          "2",
+          0
+        ]
+      ],
+      "object": {
+        "feed": [
+          "99",
+          0
+        ]
+      },
+      "long": [
+        "1",
+        0,
+        0
+      ]
+    }
+  }
+}

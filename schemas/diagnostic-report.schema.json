@@ -1,0 +1,870 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "tool": {
+      "const": "comfyui-workflow-auditor"
+    },
+    "tool_version": {
+      "const": "0.1.0.dev0"
+    },
+    "scope": {
+      "enum": [
+        "generic-json-security-core",
+        "comfyui-workflow-v1",
+        "comfyui-workflow-v0.4",
+        "comfyui-api-format",
+        "format-detection"
+      ]
+    },
+    "input_id": {
+      "const": "input-1"
+    },
+    "fingerprint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "algorithm": {
+              "const": "sha256"
+            },
+            "user_opt_in": {
+              "const": true
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "algorithm",
+            "user_opt_in",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "error_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warning_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "info_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "not_checked_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "error_count",
+        "warning_count",
+        "info_count",
+        "not_checked_count"
+      ],
+      "additionalProperties": false
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule_id": {
+            "enum": [
+              "INPUT_NOT_FOUND",
+              "INPUT_NOT_REGULAR_FILE",
+              "INPUT_UNC_PATH",
+              "INPUT_DEVICE_PATH",
+              "INPUT_LINK_OR_REPARSE_POINT",
+              "INPUT_TOO_LARGE",
+              "JSON_EMPTY",
+              "JSON_INVALID",
+              "JSON_DUPLICATE_KEY",
+              "JSON_NON_FINITE_NUMBER",
+              "JSON_TOO_DEEP",
+              "STRING_ABSOLUTE_PATH",
+              "STRING_UNC_PATH",
+              "STRING_FILE_URI",
+              "STRING_URL_WITH_CREDENTIALS",
+              "STRING_PATH_TRAVERSAL",
+              "CLI_USAGE",
+              "INTERNAL_ERROR",
+              "FMT_UNKNOWN",
+              "FMT_AMBIGUOUS",
+              "FMT_VERSION_INVALID",
+              "FMT_VERSION_UNEXPECTED",
+              "FMT_REQUIRED_FIELD_MISSING",
+              "FMT_FIELD_TYPE_INVALID",
+              "WORKFLOW_TOO_MANY_NODES",
+              "WORKFLOW_TOO_MANY_LINKS",
+              "NODE_ID_INVALID",
+              "NODE_ID_DUPLICATE",
+              "NODE_REQUIRED_FIELD_MISSING",
+              "NODE_FIELD_TYPE_INVALID",
+              "LINK_SHAPE_INVALID",
+              "LINK_REQUIRED_FIELD_MISSING",
+              "LINK_ID_INVALID",
+              "LINK_ID_DUPLICATE",
+              "LINK_ORIGIN_NODE_MISSING",
+              "LINK_TARGET_NODE_MISSING",
+              "LINK_ORIGIN_SLOT_INVALID",
+              "LINK_TARGET_SLOT_INVALID",
+              "LINK_INPUT_BACKREF_MISMATCH",
+              "LINK_OUTPUT_BACKREF_MISMATCH",
+              "LINK_SLOT_NOT_CHECKED",
+              "LINK_BACKREF_NOT_CHECKED",
+              "API_WORKFLOW_EMPTY",
+              "API_NODE_ID_INVALID",
+              "API_NODE_OBJECT_INVALID",
+              "API_CLASS_TYPE_MISSING",
+              "API_CLASS_TYPE_INVALID",
+              "API_INPUTS_MISSING",
+              "API_INPUTS_INVALID",
+              "API_META_INVALID",
+              "API_REFERENCE_SOURCE_MISSING",
+              "API_REFERENCE_INDEX_INVALID",
+              "API_REFERENCE_AMBIGUOUS"
+            ]
+          },
+          "severity": {
+            "enum": [
+              "ERROR",
+              "WARNING",
+              "INFO"
+            ]
+          },
+          "status": {
+            "enum": [
+              "CHECKED",
+              "NOT_CHECKED"
+            ]
+          },
+          "json_pointer": {
+            "type": "string",
+            "pattern": "(?:/(?:\\$k[0-9]+|[0-9]+|api_nodes|class_type|_meta|nodes|links|version|state|last_node_id|last_link_id|id|type|pos|size|flags|order|mode|properties|inputs|outputs|origin_id|origin_slot|target_id|target_slot))*"
+          },
+          "message": {
+            "enum": [
+              "The API mapping contains no nodes; executability is not established.",
+              "An API node identifier is not a nonempty ASCII digit string.",
+              "An API node must be an object.",
+              "An API node requires class_type.",
+              "API class_type must be a nonempty string.",
+              "An API node requires inputs.",
+              "API inputs must be an object.",
+              "Optional API metadata should be an object.",
+              "A reference-shaped value has no confirmable source; a connection is not established.",
+              "A value naming an existing source has an invalid or missing output index.",
+              "A reference-shaped value has an unconfirmed source and invalid index; interpretation remains unchecked.",
+              "The input file was not found.",
+              "The input could not be verified as a readable regular file.",
+              "UNC input paths are not accepted.",
+              "Device input paths are not accepted.",
+              "Links and reparse points are not accepted.",
+              "The input exceeds the byte limit.",
+              "The JSON input is empty.",
+              "The input is not strict UTF-8 JSON.",
+              "The JSON contains a duplicate object key.",
+              "Non-finite JSON numbers are not accepted.",
+              "The JSON exceeds the nesting limit.",
+              "A string contains an absolute path candidate.",
+              "A string contains a UNC path candidate.",
+              "A string contains a file URI candidate.",
+              "A string contains URL credentials.",
+              "A string contains a path traversal candidate.",
+              "Command-line usage was rejected.",
+              "An internal error prevented processing.",
+              "No supported save format was identified.",
+              "Conflicting save-format features prevent selection.",
+              "The format version is missing its required numeric value.",
+              "The legacy version differs from the expected value.",
+              "A required top-level field is absent.",
+              "A top-level field or root has an invalid type.",
+              "The node count exceeds the configured limit.",
+              "The link count exceeds the configured limit.",
+              "A node identifier has an invalid type.",
+              "A node identifier occurs more than once.",
+              "A required node field is absent.",
+              "A node or node field has an invalid type.",
+              "A link record or field has an invalid shape or type.",
+              "A required link field is absent.",
+              "A link identifier is not a finite number.",
+              "A link identifier occurs more than once.",
+              "The origin node is absent.",
+              "The target node is absent.",
+              "The origin slot is invalid or out of bounds.",
+              "The target slot is invalid or out of bounds.",
+              "The input backreference disagrees with the link.",
+              "The output backreferences do not contain the link.",
+              "Available structure cannot establish the slot bounds.",
+              "Available structure cannot verify the backreference."
+            ]
+          },
+          "safe_parameters": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "category": {
+                "enum": [
+                  "absolute_path",
+                  "unc_path",
+                  "file_uri",
+                  "url_credentials",
+                  "path_traversal"
+                ]
+              },
+              "verified": {
+                "type": "boolean"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "rule_id",
+          "severity",
+          "status",
+          "json_pointer",
+          "message",
+          "safe_parameters"
+        ],
+        "additionalProperties": false,
+        "oneOf": [
+          {
+            "properties": {
+              "rule_id": {
+                "const": "INPUT_NOT_FOUND"
+              },
+              "message": {
+                "const": "The input file was not found."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "INPUT_NOT_REGULAR_FILE"
+              },
+              "message": {
+                "const": "The input could not be verified as a readable regular file."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "INPUT_UNC_PATH"
+              },
+              "message": {
+                "const": "UNC input paths are not accepted."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "INPUT_DEVICE_PATH"
+              },
+              "message": {
+                "const": "Device input paths are not accepted."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "INPUT_LINK_OR_REPARSE_POINT"
+              },
+              "message": {
+                "const": "Links and reparse points are not accepted."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "INPUT_TOO_LARGE"
+              },
+              "message": {
+                "const": "The input exceeds the byte limit."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "JSON_EMPTY"
+              },
+              "message": {
+                "const": "The JSON input is empty."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "JSON_INVALID"
+              },
+              "message": {
+                "const": "The input is not strict UTF-8 JSON."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "JSON_DUPLICATE_KEY"
+              },
+              "message": {
+                "const": "The JSON contains a duplicate object key."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "JSON_NON_FINITE_NUMBER"
+              },
+              "message": {
+                "const": "Non-finite JSON numbers are not accepted."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "JSON_TOO_DEEP"
+              },
+              "message": {
+                "const": "The JSON exceeds the nesting limit."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "STRING_ABSOLUTE_PATH"
+              },
+              "message": {
+                "const": "A string contains an absolute path candidate."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "STRING_UNC_PATH"
+              },
+              "message": {
+                "const": "A string contains a UNC path candidate."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "STRING_FILE_URI"
+              },
+              "message": {
+                "const": "A string contains a file URI candidate."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "STRING_URL_WITH_CREDENTIALS"
+              },
+              "message": {
+                "const": "A string contains URL credentials."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "STRING_PATH_TRAVERSAL"
+              },
+              "message": {
+                "const": "A string contains a path traversal candidate."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "CLI_USAGE"
+              },
+              "message": {
+                "const": "Command-line usage was rejected."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "INTERNAL_ERROR"
+              },
+              "message": {
+                "const": "An internal error prevented processing."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "FMT_UNKNOWN"
+              },
+              "message": {
+                "const": "No supported save format was identified."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "FMT_AMBIGUOUS"
+              },
+              "message": {
+                "const": "Conflicting save-format features prevent selection."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "FMT_VERSION_INVALID"
+              },
+              "message": {
+                "const": "The format version is missing its required numeric value."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "FMT_VERSION_UNEXPECTED"
+              },
+              "message": {
+                "const": "The legacy version differs from the expected value."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "FMT_REQUIRED_FIELD_MISSING"
+              },
+              "message": {
+                "const": "A required top-level field is absent."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "FMT_FIELD_TYPE_INVALID"
+              },
+              "message": {
+                "const": "A top-level field or root has an invalid type."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "WORKFLOW_TOO_MANY_NODES"
+              },
+              "message": {
+                "const": "The node count exceeds the configured limit."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "WORKFLOW_TOO_MANY_LINKS"
+              },
+              "message": {
+                "const": "The link count exceeds the configured limit."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "NODE_ID_INVALID"
+              },
+              "message": {
+                "const": "A node identifier has an invalid type."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "NODE_ID_DUPLICATE"
+              },
+              "message": {
+                "const": "A node identifier occurs more than once."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "NODE_REQUIRED_FIELD_MISSING"
+              },
+              "message": {
+                "const": "A required node field is absent."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "NODE_FIELD_TYPE_INVALID"
+              },
+              "message": {
+                "const": "A node or node field has an invalid type."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_SHAPE_INVALID"
+              },
+              "message": {
+                "const": "A link record or field has an invalid shape or type."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_REQUIRED_FIELD_MISSING"
+              },
+              "message": {
+                "const": "A required link field is absent."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_ID_INVALID"
+              },
+              "message": {
+                "const": "A link identifier is not a finite number."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_ID_DUPLICATE"
+              },
+              "message": {
+                "const": "A link identifier occurs more than once."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_ORIGIN_NODE_MISSING"
+              },
+              "message": {
+                "const": "The origin node is absent."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_TARGET_NODE_MISSING"
+              },
+              "message": {
+                "const": "The target node is absent."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_ORIGIN_SLOT_INVALID"
+              },
+              "message": {
+                "const": "The origin slot is invalid or out of bounds."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_TARGET_SLOT_INVALID"
+              },
+              "message": {
+                "const": "The target slot is invalid or out of bounds."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_INPUT_BACKREF_MISMATCH"
+              },
+              "message": {
+                "const": "The input backreference disagrees with the link."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_OUTPUT_BACKREF_MISMATCH"
+              },
+              "message": {
+                "const": "The output backreferences do not contain the link."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_SLOT_NOT_CHECKED"
+              },
+              "message": {
+                "const": "Available structure cannot establish the slot bounds."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "LINK_BACKREF_NOT_CHECKED"
+              },
+              "message": {
+                "const": "Available structure cannot verify the backreference."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_WORKFLOW_EMPTY"
+              },
+              "message": {
+                "const": "The API mapping contains no nodes; executability is not established."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_NODE_ID_INVALID"
+              },
+              "message": {
+                "const": "An API node identifier is not a nonempty ASCII digit string."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_NODE_OBJECT_INVALID"
+              },
+              "message": {
+                "const": "An API node must be an object."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_CLASS_TYPE_MISSING"
+              },
+              "message": {
+                "const": "An API node requires class_type."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_CLASS_TYPE_INVALID"
+              },
+              "message": {
+                "const": "API class_type must be a nonempty string."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_INPUTS_MISSING"
+              },
+              "message": {
+                "const": "An API node requires inputs."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_INPUTS_INVALID"
+              },
+              "message": {
+                "const": "API inputs must be an object."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_META_INVALID"
+              },
+              "message": {
+                "const": "Optional API metadata should be an object."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_REFERENCE_SOURCE_MISSING"
+              },
+              "message": {
+                "const": "A reference-shaped value has no confirmable source; a connection is not established."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_REFERENCE_INDEX_INVALID"
+              },
+              "message": {
+                "const": "A value naming an existing source has an invalid or missing output index."
+              }
+            }
+          },
+          {
+            "properties": {
+              "rule_id": {
+                "const": "API_REFERENCE_AMBIGUOUS"
+              },
+              "message": {
+                "const": "A reference-shaped value has an unconfirmed source and invalid index; interpretation remains unchecked."
+              }
+            }
+          }
+        ]
+      }
+    },
+    "format": {
+      "enum": [
+        "generic-json",
+        "workflow-v1",
+        "workflow-v0.4",
+        "api",
+        "unknown",
+        "ambiguous"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "tool",
+    "tool_version",
+    "scope",
+    "input_id",
+    "fingerprint",
+    "summary",
+    "diagnostics",
+    "format"
+  ],
+  "additionalProperties": false,
+  "title": "Local static diagnostic report",
+  "oneOf": [
+    {
+      "properties": {
+        "format": {
+          "const": "generic-json"
+        },
+        "scope": {
+          "const": "generic-json-security-core"
+        }
+      }
+    },
+    {
+      "properties": {
+        "format": {
+          "const": "workflow-v1"
+        },
+        "scope": {
+          "const": "comfyui-workflow-v1"
+        }
+      }
+    },
+    {
+      "properties": {
+        "format": {
+          "const": "workflow-v0.4"
+        },
+        "scope": {
+          "const": "comfyui-workflow-v0.4"
+        }
+      }
+    },
+    {
+      "properties": {
+        "format": {
+          "const": "unknown"
+        },
+        "scope": {
+          "const": "format-detection"
+        }
+      }
+    },
+    {
+      "properties": {
+        "format": {
+          "const": "ambiguous"
+        },
+        "scope": {
+          "const": "format-detection"
+        }
+      }
+    },
+    {
+      "properties": {
+        "format": {
+          "const": "api"
+        },
+        "scope": {
+          "const": "comfyui-api-format"
+        }
+      }
+    }
+  ]
+}

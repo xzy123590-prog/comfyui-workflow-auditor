@@ -1,0 +1,11 @@
+[project]
+name = "comfyui-workflow-auditor"
+version = "0.1.0.dev0"
+description = "Unofficial pre-release offline static auditor for generic JSON and ComfyUI workflow formats"
+requires-python = ">=3.11"
+dependencies = []
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+
+[project.scripts]
+workflow-auditor = "workflow_auditor.cli:main"
