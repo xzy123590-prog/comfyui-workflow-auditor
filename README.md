@@ -8,7 +8,23 @@ Only Python 3.11 or newer and its standard library are required.
 There is no telemetry, no automatic network access, and no automatic repair.
 The auditor does not inspect installed nodes and does not inspect models or weights.
 
-Configure the process module search path for the `src` layout, then run:
+Run from the repository root. Configure the module search path for the
+`src` layout in the current shell; no package installation is required:
+
+PowerShell:
+
+```powershell
+$env:PYTHONPATH = (Join-Path (Get-Location) 'src')
+```
+
+POSIX shell:
+
+```sh
+export PYTHONPATH="$PWD/src"
+```
+
+Then run the commands below. They use `python`; substitute your Python 3.11+
+command (for example, `python3`) if needed.
 
 ```text
 python -S -m workflow_auditor audit tests/fixtures/valid_generic.json --format generic-json

@@ -23,9 +23,12 @@ diagnostics. It is not a workflow schema. Its contract tests exercise the vocabu
 schema with a small standard-library checker; no general schema validator
 dependency is provided.
 
-Tests and fixtures are newly authored synthetic data. The Windows handle
-path is exercised locally; POSIX behavior requires execution on a POSIX
-host for platform validation. Attribute injection tests cover symlink and
+Tests and fixtures are newly authored synthetic data. Local Windows
+handle-path testing is a maintainer-reported result; this repository does
+not include a commit-bound execution record for that claim. This statement
+does not establish coverage of every Windows filesystem boundary case.
+POSIX behavior requires execution on a POSIX host for platform validation.
+Attribute injection tests cover symlink and
 reparse classification without requiring permission to create links.
 
 The format_detection module returns a fixed enum without examining node types.
