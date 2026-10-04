@@ -75,6 +75,20 @@ input bytes including any BOM, and is null by default.
 Only one explicitly supplied local regular file is read. Referenced resources
 are never opened. No execution, registration, installation, model or plugin
 presence checks are performed. See `docs/supported-formats.md` for limitations.
+## Feedback
+
+Use [Issues](https://github.com/xzy123590-prog/comfyui-workflow-auditor/issues)
+for reproducible bug reports and focused feature requests.
+Use [Discussions](https://github.com/xzy123590-prog/comfyui-workflow-auditor/discussions)
+for Q&A, ideas, and minimal synthetic examples.
+
+Share only minimal synthetic examples. Do not include API keys, tokens,
+passwords, private paths, authenticated URLs, private prompts, private
+workflows, or private assets. A clean CWA report does not guarantee the
+absence of secrets.
+
+欢迎使用中文或英文反馈；请仅提供最小合成样例，不要上传私有信息。
+
 ## License
 
 Copyright 2026 XZY (xzy123590-prog)
